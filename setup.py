@@ -1,11 +1,12 @@
 import os
+from pathlib import Path
 from setuptools import setup, find_packages
 
 
 def read(*rnames):
     return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
 
-version = '1.2.2'
+version = (Path(__file__).resolve().parent / 'version.txt').read_text().strip()
 
 long_description = (
     read('README.rst')
@@ -29,10 +30,6 @@ setup(name='plone.caching',
           "Framework :: Plone :: Core",
           "License :: OSI Approved :: GNU General Public License (GPL)",
           "Programming Language :: Python",
-          "Programming Language :: Python :: 2.7",
-          "Programming Language :: Python :: 3.6",
-          "Programming Language :: Python :: 3.7",
-          "Programming Language :: Python :: 3.8",
           "Topic :: Software Development :: Libraries :: Python Modules",
           ],
       keywords='plone http caching',
@@ -41,8 +38,9 @@ setup(name='plone.caching',
       url='https://pypi.org/project/plone.caching',
       license='GPL',
       packages=find_packages(),
-      namespace_packages=['plone'],
+
       include_package_data=True,
+      python_requires='>=3.10',
       zip_safe=False,
       install_requires=[
           'setuptools',
@@ -53,7 +51,7 @@ setup(name='plone.caching',
           'zope.i18nmessageid',
           'zope.schema',
           'plone.transformchain',
-          'Zope2 >= 2.12.4',
+          'Zope>=6.1,<7',
       ],
       entry_points="""
       # -*- Entry points: -*-
